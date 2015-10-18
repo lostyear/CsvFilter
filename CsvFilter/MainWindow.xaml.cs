@@ -20,9 +20,28 @@ namespace CsvFilter
   /// </summary>
   public partial class MainWindow : Window
   {
+    FileFilter ff = null;
     public MainWindow()
     {
       InitializeComponent();
     }
+
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+      this.Hide();
+      FileOpener fo = new FileOpener();
+      fo.ShowDialog();
+      if (fo.DialogResult == true)
+      {
+        this.Show();
+        ff = new FileFilter(fo.FilePath);
+      }
+      else
+      {
+        Application.Current.Shutdown();
+      }
+    }
+
+
   }
 }
